@@ -10,8 +10,9 @@ namespace StringCalculator
     {
         private static int Add(string nums)
         {
+            Char[] delimeters = {'\n' };
             
-            string[] numsArr = nums.Split(',');
+            string[] numsArr = nums.Split(delimeters);
 
             var a = 0;
 
@@ -32,7 +33,7 @@ namespace StringCalculator
 
         static void Main(string[] args)
         {
-            Console.WriteLine(Add("1,2,3,4,5,6,7,8"));
+            Console.WriteLine(Add("1\n2\n3\n4\n5"));
             Console.ReadLine();
         }
 
