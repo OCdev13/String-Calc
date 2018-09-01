@@ -21,10 +21,6 @@ namespace StringCalculator
                 {
                     return 0;
                 }
-                else if (numsArr.Length > 3)
-                {
-                    throw new ArgumentException("There are more than 3 numbers in this string.", "numsArr");
-                }
                 else
                 {
                     Int32.TryParse(num, out int b);
