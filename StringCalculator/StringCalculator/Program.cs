@@ -12,14 +12,19 @@ namespace StringCalculator
         private static int Add(string nums)
         {
             // Set a pattern for regex to check for delimiters and push them to an array// 
-            var pattern = @"\//\[(.*?)\]\n";
+            var pattern = @"\[(.*?)\]";
 
             List<string> newDelims = new List<string>
             {
                 ",", "\n"
             };
 
-            newDelims.Add(Regex.Match(nums, pattern).Groups[1].Value);
+            var matches = Regex.Matches(nums, pattern);
+
+            foreach (Match m in matches)
+            {
+                newDelims.Add(m.Groups[1].ToString());
+            }
 
             string[] delim = newDelims.ToArray();
 
@@ -66,7 +71,6 @@ namespace StringCalculator
                     message += b + " , ";
                 }
                 var e = new Exception("negatives not allowed. " + message);
-                //e.Data["Numbers"] = badNums.ToString();
                 throw e;
             }
             else
@@ -77,7 +81,7 @@ namespace StringCalculator
         }
         static void Main(string[] args)
         {
-            Console.WriteLine(Add("//[%%%]\n1%%%2%%%1200"));
+            Console.WriteLine(Add("//[%%%][;;;]\n1%%%2%%%1200;;;14"));
             Console.ReadLine();
         }
     }
