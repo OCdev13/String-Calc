@@ -12,20 +12,15 @@ namespace StringCalculator
         private static int Add(string nums)
         {
             // Set a pattern for regex to check for delimiters and push them to an array// 
-            var pattern = @"\//(.*?)\n";
-
-            string delims = Regex.Match(nums, pattern).Groups[1].Value;
+            var pattern = @"\//\[(.*?)\]\n";
 
             List<string> newDelims = new List<string>
             {
-                "\n", ","
+                ",", "\n"
             };
-            
-            foreach(Match match in Regex.Matches(nums, delims))
-            {
-                newDelims.Add(match.ToString());
-            }
-          
+
+            newDelims.Add(Regex.Match(nums, pattern).Groups[1].Value);
+
             string[] delim = newDelims.ToArray();
 
             //////////////////////////////////////////////////////////////////////
@@ -39,7 +34,7 @@ namespace StringCalculator
 
             var a = 0;
 
-            foreach(var num in numsArr)
+            foreach (var num in numsArr)
             {
                 if (numsArr.Length == 0)
                 {
@@ -47,10 +42,12 @@ namespace StringCalculator
                 }
                 else if (num.Contains('-'))
                 {
-                        badNums.Add(num);                  
+                    badNums.Add(num);
                 }
                 else
                 {
+                    //Parse strings into numbers and check if they are larger than 100
+                    //if so, do not use them.//
                     Int32.TryParse(num, out int b);
                     if (b >= 1000)
                     {
@@ -60,12 +57,11 @@ namespace StringCalculator
                 }
             }
 
-
             // check for negative numbers and throw error if there are any.//
             if (badNums.Count() != 0)
             {
                 var message = "";
-                foreach(var b in badNums)
+                foreach (var b in badNums)
                 {
                     message += b + " , ";
                 }
@@ -73,15 +69,17 @@ namespace StringCalculator
                 //e.Data["Numbers"] = badNums.ToString();
                 throw e;
             }
-            return a;
-        }
+            else
+            {
+                return a;
+            }
 
+        }
         static void Main(string[] args)
         {
-            Console.WriteLine(Add("//;\n1;2;1200"));
+            Console.WriteLine(Add("//[%%%]\n1%%%2%%%1200"));
             Console.ReadLine();
         }
-
     }
 }
 
