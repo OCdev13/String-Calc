@@ -52,6 +52,10 @@ namespace StringCalculator
                 else
                 {
                     Int32.TryParse(num, out int b);
+                    if (b >= 1000)
+                    {
+                        b = 0;
+                    }
                     a = a + b;
                 }
             }
@@ -74,7 +78,7 @@ namespace StringCalculator
 
         static void Main(string[] args)
         {
-            Console.WriteLine(Add("//;\n1;-2;-3"));
+            Console.WriteLine(Add("//;\n1;2;1200"));
             Console.ReadLine();
         }
 
